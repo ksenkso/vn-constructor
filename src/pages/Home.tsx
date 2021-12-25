@@ -12,9 +12,12 @@ export const Home: FC = () => {
     }
     return (
         <div>
-            <h1>{loggedIn ? "Hello" : "Log in"}</h1>
-            {!loggedIn && <Link className="ant-btn" to="/login">Login</Link>}
-            {loggedIn && <Button onClick={logout}>Logout</Button>}
+            <div>
+                <h1>{loggedIn ? "Hello" : "Log in"}</h1>
+                {!loggedIn && <Link className="ant-btn" to="/login">Login</Link>}
+                {loggedIn && <Button onClick={logout}>Logout</Button>}
+            </div>
+            <Link className="ant-btn" to="/story">Story</Link>
         </div>
     )
 }
