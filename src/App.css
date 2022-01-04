@@ -1,5 +1,6 @@
-@import '~antd/dist/antd.less';
-
+html, body, #root {
+  height: 100%;
+}
 .App {
   text-align: center;
 }

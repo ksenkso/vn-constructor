@@ -1,14 +1,25 @@
-import React from 'react';
-import './App.less';
+import React, {useEffect} from 'react';
+import './App.css';
 import {BrowserRouter} from "react-router-dom";
 import {RoutesList} from "./routes";
+import {api} from "./hooks/api";
+import {observer} from "mobx-react";
 
-function App() {
+const AppLoader = () => {
+  return (
+    <h1>Loading...</h1>
+  )
+}
+
+const App = observer(() => {
+  useEffect(() => {
+    api.refresh()
+  }, [])
   return (
     <BrowserRouter>
-      <RoutesList />
+      {api.isLoggedIn ? <RoutesList/> : <AppLoader />}
     </BrowserRouter>
   );
-}
+});
 
 export default App;
