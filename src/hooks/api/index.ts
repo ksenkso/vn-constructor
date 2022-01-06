@@ -29,11 +29,9 @@ export class Api {
 
     this.isLoggedIn = Boolean(Number(localStorage.getItem('auth/isLoggedIn')))
 
-    makeObservable(this, {
+    makeObservable<Api, 'setAccessToken'>(this, {
       isLoggedIn: observable,
-      login: action,
-      logout: action,
-      refresh: action,
+      setAccessToken: action,
     })
 
     this._transport.interceptors.request.use(config => {
@@ -51,7 +49,7 @@ export class Api {
     })
 
     this._transport.interceptors.response.use(r => r, async (error: AxiosError) => {
-      if (error.response?.status === 401 && !(error.config as any).retry) {
+      if (error.response?.status === 401 && !(error.config as any).retry && error.config.url !== '/auth/refresh') {
         await this.refresh()
 
         const newConfig = {
@@ -85,8 +83,10 @@ export class Api {
   }
 
   logout(): Promise<void> {
-    this.accessToken = undefined
     return this._transport.post('/auth/logout')
+      .then(() => {
+        this.setAccessToken(undefined)
+      })
   }
 
   async refresh() {

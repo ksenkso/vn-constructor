@@ -1,25 +1,37 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, useNavigate} from "react-router-dom";
 import {RoutesList} from "./routes";
+import {ProvideAuth} from "./hooks/auth";
 import {api} from "./hooks/api";
-import {observer} from "mobx-react";
 
-const AppLoader = () => {
+const Root = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    api.refresh()
+      .catch(() => {
+        navigate('/login')
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [navigate])
+
   return (
-    <h1>Loading...</h1>
+    isLoading ? <h1>Loading...</h1> : <RoutesList />
   )
 }
 
-const App = observer(() => {
-  useEffect(() => {
-    api.refresh()
-  }, [])
+const App = () => {
   return (
-    <BrowserRouter>
-      {api.isLoggedIn ? <RoutesList/> : <AppLoader />}
-    </BrowserRouter>
+    <ProvideAuth>
+      <BrowserRouter>
+        <Root />
+      </BrowserRouter>
+    </ProvideAuth>
   );
-});
+};
 
 export default App;

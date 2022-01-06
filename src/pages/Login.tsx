@@ -1,8 +1,8 @@
 import React from 'react';
-import {api} from "../hooks/api";
 import {useNavigate} from "react-router-dom";
 import {Box, Button, TextField} from "@mui/material";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {api} from "../hooks/api";
 
 type Inputs = {
   username: string;
