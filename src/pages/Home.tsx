@@ -1,20 +1,47 @@
 import {FC} from "react";
-import {Link} from "react-router-dom";
-import {Button} from "@mui/material";
+import {AppBar, Box, Button, Container, Stack, Toolbar, Typography} from "@mui/material";
 import {observer} from "mobx-react";
 import {api} from "../hooks/api";
+import {Link} from "react-router-dom";
+import {Stories} from "./Stories";
 
 export const Home: FC = observer(() => {
   const logout = () => api.logout()
 
   return (
-    <div>
-      <div>
-        <h1>{api.isLoggedIn ? "Hello" : "Log in"}</h1>
-        <Button component={Link} to="/story">Story</Button>
-        {!api.isLoggedIn && <Button component={Link} to="/login">Login</Button>}
-        {api.isLoggedIn && <Button onClick={logout}>Logout</Button>}
-      </div>
-    </div>
+    <Stack>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component={(props) => <Link {...props} to="/">VNP | Constructor</Link>}
+              sx={{
+                color: 'white',
+                textDecoration: 'none',
+                userSelect: 'none',
+              }}
+            />
+            <Box sx={{
+              ml: 'auto'
+            }}>
+              <Button
+                variant="text"
+                sx={{
+                  color: 'primary.contrastText'
+                }}
+                onClick={logout}
+              >
+                Logout
+              </Button>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <Container sx={{pt: 4}}>
+        <Stories/>
+      </Container>
+    </Stack>
   )
 })

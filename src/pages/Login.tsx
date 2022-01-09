@@ -1,20 +1,22 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
-import {Box, Button, TextField} from "@mui/material";
+import {Button, Grid, Stack, TextField} from "@mui/material";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {api} from "../hooks/api";
+import {useApi} from "../hooks/api";
+import {observer} from "mobx-react";
+import {useNavigate} from "react-router-dom";
 
 type Inputs = {
   username: string;
   password: string;
 }
 
-export const Login = () => {
+export const Login = observer(() => {
   const {
     register,
     handleSubmit,
     formState,
   } = useForm<Inputs>()
+  const api = useApi()
   const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
@@ -28,36 +30,51 @@ export const Login = () => {
   }
 
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': {m: 1, width: '25ch'},
-      }}
+    <form
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div>
-        <TextField
-          required
-          id="outlined"
-          label="Login"
-          {...register('username', {required: true})}
-        />
-        <TextField
-          required
-          id="outlined"
-          label="Password"
-          {...register('password', {required: true})}
-        />
-        {formState.errors.password}
-        <Button
-          type="submit"
-          variant="contained"
-        >
-          Login
-        </Button>
-      </div>
-    </Box>
+      <Grid container>
+        <Grid item xs={4} sx={{
+          ml: 'auto',
+          mr: 'auto',
+          mt: 4,
+        }}>
+          <Stack
+            sx={{
+              '& .MuiTextField-root': {m: 1, width: '25ch'},
+            }}
+            alignItems="center"
+          >
+            <TextField
+              required
+              id="outlined"
+              label="Login"
+              {...register('username', {required: {value: true, message: 'You should provide a user name'}})}
+              error={!!formState.errors.username}
+              helperText={formState.errors.username?.message}
+              sx={{pb: 1}}
+            />
+            <TextField
+              required
+              id="outlined"
+              label="Password"
+              {...register('password', {required: {value: true, message: 'You should provide a password'}})}
+              error={!!formState.errors.password}
+              helperText={formState.errors.password?.message}
+              sx={{pb: 1}}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+            >
+              Login
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
+    </form>
+
   )
-}
+})

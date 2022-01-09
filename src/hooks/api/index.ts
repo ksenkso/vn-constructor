@@ -2,6 +2,7 @@ import axios, {AxiosError, AxiosInstance, AxiosResponse} from "axios";
 import {StoriesEndpoint} from "./StoriesEndpoint";
 import {SequencesEndpoint} from "./SequencesEndpoint";
 import {action, makeObservable, observable} from "mobx";
+import {createContext, useContext} from "react";
 
 const BASE_URL = process.env.REACT_APP_API_URL
 
@@ -95,8 +96,13 @@ export class Api {
     }
 
     const {data} = await this.refreshRequest
+    this.refreshRequest = undefined
     this.setAccessToken(data.accessToken)
   }
 }
 
 export const api = new Api()
+export const ApiContext = createContext<Api>(api)
+export const useApi = () => {
+  return useContext(ApiContext)
+}

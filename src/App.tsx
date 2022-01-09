@@ -1,37 +1,31 @@
-import React, {useEffect, useState} from 'react';
-import './App.css';
-import {BrowserRouter, useNavigate} from "react-router-dom";
-import {RoutesList} from "./routes";
-import {ProvideAuth} from "./hooks/auth";
-import {api} from "./hooks/api";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {Home} from "./pages/Home";
+import {Login} from "./pages/Login";
+import {useApi} from "./hooks/api";
+import {observer} from "mobx-react";
+import {FC, ReactElement} from "react";
 
-const Root = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
+let PublicPage: FC<{ children: ReactElement }> = observer((props) => {
+  const api = useApi()
+  return api.isLoggedIn ? props.children : <Navigate to="/login"/>
+})
 
-  useEffect(() => {
-    api.refresh()
-      .catch(() => {
-        navigate('/login')
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }, [navigate])
+const LoginPage = observer(() => {
+  const api = useApi()
+  return api.isLoggedIn ? <Navigate to="/"/> : <Login/>
+})
 
+export const App = () => {
   return (
-    isLoading ? <h1>Loading...</h1> : <RoutesList />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <PublicPage>
+            <Home />
+          </PublicPage>
+        }/>
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-const App = () => {
-  return (
-    <ProvideAuth>
-      <BrowserRouter>
-        <Root />
-      </BrowserRouter>
-    </ProvideAuth>
-  );
-};
-
-export default App;
