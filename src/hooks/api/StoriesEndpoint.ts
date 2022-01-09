@@ -1,12 +1,7 @@
 import {Endpoint} from "./Endpoint";
+import {Story} from "./types";
 
-export interface Story {
-  id: number;
-  name: string;
-  rootId: number;
-}
-
-export class StoriesEndpoint extends Endpoint {
+export default class StoriesEndpoint extends Endpoint {
   async getAll(): Promise<Story[]> {
     return this.get('/story')
   }

@@ -1,20 +1,14 @@
-import {Backdrop, CircularProgress} from "@mui/material";
 import {FC} from "react";
+import {Backdrop, CircularProgress} from "@mui/material";
 
-type Props = {
+interface Props {
   open: boolean;
 }
 
 export const Loader: FC<Props> = ({ open }) => {
   return (
-    <Backdrop
-      open={open}
-      sx={{
-        color: '#fff',
-        zIndex: (theme) => theme.zIndex.drawer + 1
-      }}
-    >
-      <CircularProgress variant="indeterminate" sx={{color: 'inherit'}} />
+    <Backdrop open={open} data-testid="backdrop">
+      <CircularProgress variant={"indeterminate"} />
     </Backdrop>
   )
 }

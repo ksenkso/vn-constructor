@@ -2,37 +2,7 @@ import ReactFlow, {addEdge, Edge, Elements, Node, removeElements} from "react-fl
 import {useEffect, useState} from "react";
 import {Connection} from "react-flow-renderer/dist/types";
 import {api} from "../hooks/api";
-
-export enum SequenceNodeType {
-  Text,
-  Sound,
-  Animation,
-}
-
-export type SequenceNodeDescription =
-  | TextNodeDescription
-  | SoundNodeDescription;
-
-export interface TextNodeDescription {
-  speaker: string;
-  text: string;
-}
-
-export interface SoundNodeDescription {
-  sound: string;
-}
-
-export interface AnimationNodeDescription {
-  order: number;
-}
-interface ISequenceNode {
-  id: number;
-  type: SequenceNodeType;
-  description: SequenceNodeDescription;
-  sequenceId: number;
-  nextId: number | null;
-  prevId: number | null;
-}
+import {ISequenceNode, TextNodeDescription} from "../hooks/api/types";
 
 function createEdges(nodes: ISequenceNode[]): Edge[] {
   const edges: Edge[] = [];

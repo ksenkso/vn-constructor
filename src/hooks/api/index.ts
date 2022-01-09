@@ -1,5 +1,5 @@
 import axios, {AxiosError, AxiosInstance, AxiosResponse} from "axios";
-import {StoriesEndpoint} from "./StoriesEndpoint";
+import StoriesEndpoint from "./StoriesEndpoint";
 import {SequencesEndpoint} from "./SequencesEndpoint";
 import {action, makeObservable, observable} from "mobx";
 import {createContext, useContext} from "react";

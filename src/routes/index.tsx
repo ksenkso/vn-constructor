@@ -1,36 +1,19 @@
-import React from "react";
-import {Navigate, Route, Routes,} from "react-router-dom";
-import {Home} from "../pages/Home";
-import {Login} from "../pages/Login";
-import {Story} from "../pages/Story";
-import {useApi} from "../hooks/api";
-import {observer} from "mobx-react";
+import {Route, Routes} from "react-router-dom";
+import {EditorPage} from "../pages/EditorPage";
+import {LoginPage} from "../pages/LoginPage";
+import {PublicPage} from "./helpers";
+import {StoriesPage} from "../pages/StoriesPage";
 
-export const ProtectedRoute = observer(({ children }: {children: React.ReactElement}) => {
-  const api = useApi()
-
-  return api.isLoggedIn ? children : <Navigate to="/login"/>
-})
-
-export const LoginRoute = observer((props: any) => {
-  const api = useApi()
-  return api.isLoggedIn ? <Navigate to="/"/> : props.children
-})
-
-export const RoutesList = () => {
+export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={
-        <ProtectedRoute>
-          <Home/>
-        </ProtectedRoute>
+        <PublicPage>
+          <StoriesPage/>
+        </PublicPage>
       }/>
-      <Route path="/login" element={<LoginRoute><Login/></LoginRoute>}/>
-      <Route path="/story" element={
-        <ProtectedRoute>
-          <Story/>
-        </ProtectedRoute>
-      }/>
+      <Route path="/editor/:storyId" element={<EditorPage/>}/>
+      <Route path="/login" element={<LoginPage/>}/>
     </Routes>
   )
 }

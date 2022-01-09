@@ -52,12 +52,8 @@
       "last 1 safari version"
     ]
   },
-  "jest": {
-    "transformIgnorePatterns": [
-      "/node_modules/(?!antd|@ant-design|rc-.+?|@babel/runtime).+(js|jsx)$"
-    ]
-  },
   "devDependencies": {
+    "jest-mock": "^27.4.6",
     "source-map-loader": "^3.0.0"
   }
 }

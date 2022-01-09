@@ -3,7 +3,7 @@ import {Button, Grid, Stack, TextField} from "@mui/material";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useApi} from "../hooks/api";
 import {observer} from "mobx-react";
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 
 type Inputs = {
   username: string;
@@ -50,7 +50,7 @@ export const Login = observer(() => {
             <TextField
               required
               id="outlined"
-              label="Login"
+              label="LoginPage"
               {...register('username', {required: {value: true, message: 'You should provide a user name'}})}
               error={!!formState.errors.username}
               helperText={formState.errors.username?.message}
@@ -69,7 +69,7 @@ export const Login = observer(() => {
               type="submit"
               variant="contained"
             >
-              Login
+              LoginPage
             </Button>
           </Stack>
         </Grid>
@@ -77,4 +77,9 @@ export const Login = observer(() => {
     </form>
 
   )
+})
+
+export const LoginPage = observer(() => {
+  const api = useApi()
+  return api.isLoggedIn ? <Navigate to="/"/> : <Login/>
 })
