@@ -6,7 +6,11 @@ export interface Sequence {
 }
 
 export class SequencesEndpoint extends Endpoint {
-  getById(id: number) {
-    return this.transport.get(`/sequence/${id}`)
+  getById(id: number): Promise<Sequence> {
+    return this.get(`/sequence/${id}`)
+  }
+
+  getForStory(storyId: number): Promise<Sequence[]> {
+    return this.get(`/sequence/forStory/${storyId}`)
   }
 }

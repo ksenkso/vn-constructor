@@ -2,9 +2,9 @@ import ReactFlow, {addEdge, Edge, Elements, Node, removeElements} from "react-fl
 import {useEffect, useState} from "react";
 import {Connection} from "react-flow-renderer/dist/types";
 import {api} from "../hooks/api";
-import {ISequenceNode, TextNodeDescription} from "../hooks/api/types";
+import {SequenceNode, TextNodeDescription} from "../hooks/api/types";
 
-function createEdges(nodes: ISequenceNode[]): Edge[] {
+function createEdges(nodes: SequenceNode[]): Edge[] {
   const edges: Edge[] = [];
   nodes.forEach(node => {
     if (node.nextId) {
@@ -19,7 +19,7 @@ function createEdges(nodes: ISequenceNode[]): Edge[] {
   return edges
 }
 
-function createNodes(source: ISequenceNode[]): Node[] {
+function createNodes(source: SequenceNode[]): Node[] {
   return source.map((node, index) => ({
     id: String(node.id),
     position: {
@@ -45,7 +45,7 @@ export const StoryGraph = () => {
     api.stories.getById(3)
       .then((r) => {
         api.sequences.getById(r.rootId)
-          .then(({ data: sequence }) => {
+          .then((sequence) => {
             const nodes = createNodes(sequence.nodes)
             const edges = createEdges(sequence.nodes)
             setElements(els => els.concat(nodes).concat(edges))

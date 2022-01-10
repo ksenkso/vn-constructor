@@ -52,7 +52,7 @@ export const StoriesPage: FC = () => {
           Add
         </Button>
       </Grid>
-      <Loader open={loading} />
+      <Loader loading={loading} />
       <StoriesGrid
         stories={stories}
         onDeleteClick={askDelete}

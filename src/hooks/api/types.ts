@@ -27,7 +27,7 @@ export interface AnimationNodeDescription {
   order: number;
 }
 
-export interface ISequenceNode {
+export interface SequenceNode {
   id: number;
   type: SequenceNodeType;
   description: SequenceNodeDescription;

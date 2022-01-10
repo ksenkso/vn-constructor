@@ -1,44 +1,47 @@
 import {FC, useEffect, useState} from "react";
 import {PublicPage} from "../routes/helpers";
-import {useApi} from "../hooks/api";
 import {useParams} from "react-router-dom";
-import {Story} from "../hooks/api/types";
-import {Container} from "@mui/material";
+import {Box} from "@mui/material";
 import {Loader} from "../components/Loader";
 import {Editor} from "../components/editor/Editor";
+import {editorStore} from "../components/editor/EditorStore";
 
 function NotFound() {
   return (<div>Not found</div>)
 }
 
 export const EditorPage: FC = () => {
-  const api = useApi()
   const {storyId} = useParams()
-  const [story, setStory] = useState<Story>(null!)
+  const [hasError, setHasError] = useState(false)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.stories.getById(Number(storyId))
-      .then(story => {
-        setStory(story)
+    editorStore.loadStory(Number(storyId))
+      .then(() => {
+        if (hasError) {
+          setHasError(false)
+        }
+      })
+      .catch(() => {
+        setHasError(true)
       })
       .finally(() => {
         setLoading(false)
       })
-  }, [storyId, api.stories])
+  }, [storyId, hasError])
 
   return (
     <PublicPage>
-      <Container sx={{mt: 4}}>
-        <Loader open={loading}/>
+      <Box>
+        <Loader loading={loading}/>
         {
           !loading
-            ? story
-              ? <Editor story={story}/>
-              : <NotFound/>
+            ? hasError
+              ? <NotFound/>
+              : <Editor/>
             : null
         }
-      </Container>
+      </Box>
     </PublicPage>
   )
 }

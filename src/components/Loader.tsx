@@ -1,14 +1,16 @@
 import {FC} from "react";
-import {Backdrop, CircularProgress} from "@mui/material";
+import {Box, CircularProgress, Fade} from "@mui/material";
 
 interface Props {
-  open: boolean;
+  loading: boolean;
 }
 
-export const Loader: FC<Props> = ({ open }) => {
+export const Loader: FC<Props> = ({loading}) => {
   return (
-    <Backdrop open={open} data-testid="backdrop">
-      <CircularProgress variant={"indeterminate"} />
-    </Backdrop>
+    <Box display="flex" justifyContent="center" alignItems="center">
+      <Fade in={loading}>
+        <CircularProgress variant={"indeterminate"}/>
+      </Fade>
+    </Box>
   )
 }
