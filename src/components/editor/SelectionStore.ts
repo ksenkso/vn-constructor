@@ -1,7 +1,7 @@
-import {SequenceNode, Story} from "../../hooks/api/types";
-import {Sequence} from "../../hooks/api/SequencesEndpoint";
+import {ISequenceNode, IStory} from "../../hooks/api/types";
+import {SlimSequence} from "../../hooks/api/SequencesEndpoint";
 
-export type SelectedItem = Story | Sequence | SequenceNode
+export type SelectedItem = IStory | SlimSequence | ISequenceNode
 
 export class SelectionStore {
     selection: SelectedItem[] = []

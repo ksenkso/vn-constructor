@@ -1,10 +1,10 @@
-import {Story} from "../../hooks/api/types";
+import {IStory} from "../../hooks/api/types";
 import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
 import {ButtonLink} from "../ButtonLink";
 import {FC} from "react";
 
 interface Props {
-  story: Story;
+  story: IStory;
   onClick: () => void;
 }
 

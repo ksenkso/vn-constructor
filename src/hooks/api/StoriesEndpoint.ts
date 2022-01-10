@@ -1,12 +1,12 @@
 import {Endpoint} from "./Endpoint";
-import {Story} from "./types";
+import {IStory} from "./types";
 
 export default class StoriesEndpoint extends Endpoint {
-  async getAll(): Promise<Story[]> {
+  async getAll(): Promise<IStory[]> {
     return this.get('/story')
   }
 
-  async getById(id: number): Promise<Story> {
+  async getById(id: number): Promise<IStory> {
     return this.get(`/story/${id}`)
   }
 

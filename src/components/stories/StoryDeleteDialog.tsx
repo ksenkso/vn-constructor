@@ -1,10 +1,10 @@
 import {FC} from "react";
 import {Button, Dialog, DialogActions, DialogTitle} from "@mui/material";
-import {Story} from "../../hooks/api/types";
+import {IStory} from "../../hooks/api/types";
 
 interface DeleteStoryProps {
     open: boolean;
-    story: Story | null;
+    story: IStory | null;
     onCancel: () => void;
     onConfirm: () => void;
 }

@@ -2,16 +2,16 @@ import {FC, useCallback, useEffect, useState} from "react";
 import {Button, Container, Grid, Typography} from "@mui/material";
 import {useApi} from "../hooks/api";
 import {StoryDeleteDialog} from "../components/stories/StoryDeleteDialog";
-import {Story} from "../hooks/api/types";
+import {IStory} from "../hooks/api/types";
 import {Loader} from "../components/Loader";
 import {StoriesGrid} from "../components/stories/StoriesGrid";
 
 export const StoriesPage: FC = () => {
   const api = useApi()
-  const [stories, setStories] = useState<Story[]>([])
+  const [stories, setStories] = useState<IStory[]>([])
   const [loading, setLoading] = useState(true)
-  const [storyToDelete, setStoryToDelete] = useState<Story>(null!);
-  const askDelete = (story: Story) => {
+  const [storyToDelete, setStoryToDelete] = useState<IStory>(null!);
+  const askDelete = (story: IStory) => {
     setStoryToDelete(story)
   }
 

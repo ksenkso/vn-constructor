@@ -1,9 +1,3 @@
-export interface Story {
-  id: number;
-  name: string;
-  rootId: number;
-}
-
 export enum SequenceNodeType {
   Text,
   Sound,
@@ -27,7 +21,7 @@ export interface AnimationNodeDescription {
   order: number;
 }
 
-export interface SequenceNode {
+export interface ISequenceNode {
   id: number;
   type: SequenceNodeType;
   description: SequenceNodeDescription;

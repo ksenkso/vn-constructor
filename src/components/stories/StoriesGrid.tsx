@@ -1,11 +1,11 @@
 import {FC} from "react";
 import {Container, Grid} from "@mui/material";
-import {Story} from "../../hooks/api/types";
+import {IStory} from "../../hooks/api/types";
 import {StoryCard} from "./StoryCard";
 
 interface StoriesGridProps {
-  stories: Story[];
-  onDeleteClick: (story: Story) => void;
+  stories: IStory[];
+  onDeleteClick: (story: IStory) => void;
 }
 
 export const StoriesGrid: FC<StoriesGridProps> = ({stories, onDeleteClick}) => {

@@ -2,9 +2,9 @@ import ReactFlow, {addEdge, Edge, Elements, Node, removeElements} from "react-fl
 import {useEffect, useState} from "react";
 import {Connection} from "react-flow-renderer/dist/types";
 import {api} from "../hooks/api";
-import {SequenceNode, TextNodeDescription} from "../hooks/api/types";
+import {ISequenceNode, TextNodeDescription} from "../hooks/api/types";
 
-function createEdges(nodes: SequenceNode[]): Edge[] {
+function createEdges(nodes: ISequenceNode[]): Edge[] {
   const edges: Edge[] = [];
   nodes.forEach(node => {
     if (node.nextId) {
@@ -19,7 +19,7 @@ function createEdges(nodes: SequenceNode[]): Edge[] {
   return edges
 }
 
-function createNodes(source: SequenceNode[]): Node[] {
+function createNodes(source: ISequenceNode[]): Node[] {
   return source.map((node, index) => ({
     id: String(node.id),
     position: {
