@@ -1,12 +1,12 @@
 import {ISequenceNode, IStory} from "../../hooks/api/types";
-import {SlimSequence} from "../../hooks/api/SequencesEndpoint";
+import {GraphSequence} from "../../hooks/api/SequencesEndpoint";
 import {makeAutoObservable} from "mobx";
 import {api} from "../../hooks/api";
 
 export class EditorStore {
   story: IStory | null = null
   nodes: ISequenceNode[] = []
-  sequences: SlimSequence[] = []
+  sequences: GraphSequence[] = []
 
   constructor() {
     makeAutoObservable(this)
