@@ -1,14 +1,69 @@
 import {FC, useEffect} from "react";
-import {Grid} from "@mui/material";
+import {Box, Grid} from "@mui/material";
 import {observer} from "mobx-react";
-import {editorStore} from "./EditorStore";
+import {editorStore, GraphNodeType} from "./EditorStore";
+import ReactFlow, {Handle, NodeProps, Position} from "react-flow-renderer";
 
 interface EditorProps {
 }
 
-function EditorCanvas() {
-  return null;
+const SequenceNode: FC<NodeProps> = observer((props) => {
+  useEffect(() => {
+    console.log(props.id, props.type, props.selected)
+  }, [props.id, props.selected, props.type])
+  return (
+    <>
+      <Handle
+        position={Position.Top}
+        type="target"
+      />
+      <div>
+        Sequence
+      </div>
+      <Handle
+        position={Position.Bottom}
+        type="source"
+      />
+    </>
+  )
+})
+
+const RouterNode: FC<NodeProps> = observer((props) => {
+  useEffect(() => {
+    console.log(props.id, props.type, props.selected)
+  }, [props.id, props.selected, props.type])
+  return (
+    <>
+      <Handle
+        position={Position.Top}
+        type="target"
+      />
+      <div>
+        Router
+      </div>
+      <Handle
+        position={Position.Top}
+        type="source"
+      />
+    </>
+  )
+})
+
+const NODE_TYPES = {
+  [GraphNodeType.SEQUENCE]: SequenceNode,
+  [GraphNodeType.ROUTER]: RouterNode,
 }
+
+const EditorCanvas = observer(() => {
+  return (
+    <Box width={800} height={800}>
+      <ReactFlow
+        nodeTypes={NODE_TYPES}
+        elements={editorStore.graph}
+      />
+    </Box>
+  )
+});
 
 function EditorSidebar() {
   return null;
