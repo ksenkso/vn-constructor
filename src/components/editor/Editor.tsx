@@ -56,7 +56,7 @@ const NODE_TYPES = {
 
 const EditorCanvas = observer(() => {
   return (
-    <Box width={800} height={800}>
+    <Box width={800} height={800} border="1px solid grey">
       <ReactFlow
         nodeTypes={NODE_TYPES}
         elements={editorStore.graph}
