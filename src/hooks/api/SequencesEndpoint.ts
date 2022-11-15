@@ -2,7 +2,6 @@ import {Endpoint} from "./Endpoint";
 import {ISequence} from "./types";
 import {IRouteCondition} from "./types/IRouteCondition";
 
-export type SlimSequence = Omit<ISequence, 'choice' | 'nodes' | 'router' | 'story'>
 export type GraphSequence = Pick<ISequence, 'id' | 'slug'> & {
   router: GraphRouterNode | null;
 }
@@ -10,7 +9,7 @@ export type GraphRouterNode = {
   id: number;
   conditions: GraphRouteCondition[];
 }
-export type GraphRouteCondition = Pick<IRouteCondition, 'sequenceId'>
+export type GraphRouteCondition = Pick<IRouteCondition, 'to'>
 
 
 export class SequencesEndpoint extends Endpoint {

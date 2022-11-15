@@ -13,6 +13,7 @@ export interface ApiOptions {
 }
 
 export class Api {
+  // this is a state of an API client, so it stays here
   public isLoggedIn = false;
   private readonly _transport: AxiosInstance;
   private accessToken?: string;

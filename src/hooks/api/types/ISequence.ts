@@ -11,7 +11,7 @@ export interface ISequence {
   enterProgram: File | null;
   leaveProgram: File | null;
   choiceId: number | null;
-  choice: IChoice;
+  choice: IChoice | null;
   nodes: ISequenceNode[];
   router: IRouterNode;
 }

@@ -1,11 +1,6 @@
-import {ISequence} from "./ISequence";
-import {IRouterNode} from "./IRouterNode";
-
 export interface IRouteCondition {
   id: number;
-  condition: File;
+  to: number;
+  conditionText: string;
   routerId: number;
-  router: IRouterNode;
-  sequenceId: number;
-  sequence: ISequence;
 }
